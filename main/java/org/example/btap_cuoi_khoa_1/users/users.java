@@ -1,4 +1,4 @@
-package org.proptit.btap_cuoi_khoa_1.users;
+package org.example.btap_cuoi_khoa_1.users;
 
 public class users {
     private int id;

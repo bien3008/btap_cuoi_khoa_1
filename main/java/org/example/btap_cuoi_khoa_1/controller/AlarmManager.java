@@ -1,5 +1,6 @@
 package org.example.btap_cuoi_khoa_1.controller;
 
+import javafx.fxml.FXML;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class AlarmManager {
     public static Scanner sc = new Scanner(System.in);
     public static List<Alarm> alarms = new ArrayList<>();
+    @FXML
     public void addAlarm(Alarm alarm){
         alarms.add(alarm);
     }
