@@ -11,12 +11,14 @@ public class AlarmsManager {
     private static AlarmsManager instance;
     private ObservableList<Alarm> alarmList = FXCollections.observableArrayList();
     UserManager manager = UserManager.getInstance();
+    private AlarmsManager() {}
     public static AlarmsManager getInstance() {
         if (instance == null) {
             instance = new AlarmsManager();
         }
         return instance;
     }
+
     public ObservableList<Alarm> getAlarmList() {
         return alarmList;
     }

@@ -53,10 +53,10 @@ public class MainSceneController {
     @FXML
     private ComboBox<LocalTime> timeComboBox;
 
-    AlarmsManager manager = new AlarmsManager();
+    AlarmsManager manager = AlarmsManager.getInstance();
     ObservableList<Alarm> alarmList = manager.getAlarmList();
     private final Reminder reminder = new Reminder();
-    private AlarmNotifications notifications ;
+    private AlarmNotifications notifications = new AlarmNotifications(alarmList);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public void initialize() {
@@ -65,7 +65,6 @@ public class MainSceneController {
         vBox.setVisible(false);
         alarmListView.setCellFactory(param -> new AlarmCell());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
         List<LocalTime> timeOptions = new ArrayList<>();
         for (int hour = 0; hour < 24; hour++) {
             for (int minute = 0; minute < 60; minute += 1) {
@@ -84,6 +83,7 @@ public class MainSceneController {
                 return (string == null || string.isEmpty()) ? null : LocalTime.parse(string, formatter);
             }
         });
+        notifications.startChecking();
     }
     @FXML
     private void showInputFields() {

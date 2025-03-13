@@ -35,7 +35,7 @@ public class TestController {
     private TextArea textArea;
     @FXML
     private ComboBox<LocalTime> timeComboBox;
-    AlarmsManager manager = new AlarmsManager();
+    AlarmsManager manager = AlarmsManager.getInstance();
     ObservableList<Alarm> alarmList = manager.getAlarmList();
     public void initialize() {
         manager.loadAlarms();
