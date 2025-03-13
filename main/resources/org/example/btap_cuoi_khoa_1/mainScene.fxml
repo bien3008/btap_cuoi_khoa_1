@@ -1,25 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.btap_cuoi_khoa_1.controller.AlarmManager">
-    <Label text="Danh sách báo thức"/>
-    <ListView fx:id="alarmListView" prefHeight="200" prefWidth="300"/>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-    <HBox spacing="10">
-        <TextField fx:id="txtTime" promptText="Nhập giờ (HH:mm)"/>
-        <TextField fx:id="txtMessage" promptText="Nội dung báo thức"/>
-        <Button text="Thêm" onAction="#addAlarm"/>
-    </HBox>
-
-    <Button text="Tải lại danh sách" onAction="#loadAlarms"/>
-</VBox>
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#handleRootClick" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.MainSceneController">
+   <children>
+      <HBox alignment="CENTER" layoutX="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="85.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+         <children>
+            <Label fx:id="label" text="alarm list" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ListView fx:id="alarmListView" layoutY="80.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.7);" />
+      <AnchorPane fx:id="inputPane" layoutY="271.0" prefHeight="129.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+         <children>
+            <VBox alignment="TOP_RIGHT" layoutX="476.0" layoutY="16.0" prefHeight="113.0" prefWidth="124.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="add alarm">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                     </font></Button>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="edit alarm">
+                     <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                     </font></Button>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="delete alarm">
+                     <font>
+                        <Font name="Arial Narrow Bold Italic" size="16.0" />
+                     </font></Button>
+               </children>
+            </VBox>
+            <VBox fx:id="vBox" alignment="TOP_RIGHT" layoutX="324.0" layoutY="16.0" prefHeight="113.0" prefWidth="133.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="choose time">
+                     <font>
+                        <Font name="Arial Narrow" size="14.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="timeComboBox" prefWidth="150.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="message">
+                     <font>
+                        <Font name="Arial Narrow" size="14.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="textArea" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="20.0" promptText="message" style="-fx-background-color: white;">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font></TextArea>
+               </children>
+            </VBox>
+            <Button fx:id="logOutButton" layoutX="13.0" layoutY="91.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0.5);" text="log out">
+               <font>
+                  <Font name="Arial Narrow Bold Italic" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

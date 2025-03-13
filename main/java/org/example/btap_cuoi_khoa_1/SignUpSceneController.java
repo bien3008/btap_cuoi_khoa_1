@@ -1,19 +1,19 @@
 package org.example.btap_cuoi_khoa_1;
 import java.io.*;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.btap_cuoi_khoa_1.manager.UserManager;
+import utils.Utils;
+
 public class SignUpSceneController {
     @FXML
     private ResourceBundle resources;
@@ -31,63 +31,37 @@ public class SignUpSceneController {
     private Button signUPButton;
     @FXML
     private Button submitButton;
-
+    @FXML
+    private Button backButton;
     @FXML
     private TextField confirmPasswordField;
+    private UserManager userManager = UserManager.getInstance();
 
-    private static final String fileName = "userdata.txt";
-    private static final String sceneFolder = "scenes";
-
-    private boolean checkName(String username){
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith(username + ",")) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("errol!");
-        }
-        return false;
-    }
     @FXML
     private void saveToFile() {
-        String username = useNameField.getText().trim();
+        String userName = useNameField.getText().trim();
         String password = passwordField.getText().trim();
         String confirmPassword = confirmPasswordField.getText().trim();
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            showAlert("please fill full of information!");
+        if (userName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Utils.showAlert("please fill full of information!");
             return;
         }
-        if(checkName(username)){
-            showAlert("username exited!");
-            return;
-        }
-        if(confirmPassword.equals(password) != true){
-            showAlert("confirm password do not match with password!");
+        if (userManager.checkName(userName,password) != true) {
+            useNameField.clear();
+            passwordField.clear();
             confirmPasswordField.clear();
             return;
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write( username + "\n" + password );
-            writer.newLine();
-            showAlert("register success!");
-            switchToLogin();
-        } catch (IOException e) {
-            showAlert("errol!");
+        if(confirmPassword.equals(password) != true){
+            Utils.showAlert("confirm password do not match with password!");
+            confirmPasswordField.clear();
+            return;
         }
-        // Xóa nội dung TextField sau khi lưu
-        useNameField.clear();
-        passwordField.clear();
+        userManager.addUser(userName,password);
+        Utils.showAlert("register success!");
+        switchToLogin();
     }
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("notify");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+    
     @FXML
     private void switchToLogin() {
         try {
@@ -98,11 +72,5 @@ public class SignUpSceneController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    @FXML
-    void initialize() throws IOException {
-        assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'signUpScene.fxml'.";
-        assert signUPButton != null : "fx:id=\"signUPButton\" was not injected: check your FXML file 'signUpScene.fxml'.";
-
     }
 }

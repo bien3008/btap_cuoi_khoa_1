@@ -8,42 +8,49 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.LoginSceneController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.LoginSceneController">
    <children>
-      <ImageView fx:id="image" fitHeight="406.0" fitWidth="611.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
+
+      <ImageView fx:id="image" fitHeight="406.0" fitWidth="611.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../images/background-dep-thien-nhien.jpg" />
+            <Image url="@../../../images/background-dep-don-gian.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="200.0" layoutY="90.0" prefHeight="237.0" prefWidth="211.0" style="-fx-background-color: rgba(255,255,255,0.7);">
+      <AnchorPane layoutX="186.0" layoutY="91.0" prefHeight="237.0" prefWidth="211.0" style="-fx-background-color: rgba(255,255,255,0);">
          <children>
-            <Text layoutX="54.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ProHealth">
-               <font>
-                  <Font name="Arial Narrow Bold Italic" size="20.0" />
-               </font>
-            </Text>
-            <Text fx:id="useName" layoutX="7.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usename">
+            <Text fx:id="useName" fill="#fffdfd" layoutX="7.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="usename">
                <font>
                   <Font name="Arial Narrow Bold" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="useNameField" layoutY="81.0" prefHeight="25.0" prefWidth="211.0" />
-            <Text fx:id="password" layoutX="4.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
+            <TextField fx:id="useNameField" layoutY="81.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></TextField>
+            <Text fx:id="password" fill="WHITE" layoutX="4.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password">
                <font>
                   <Font name="Arial Narrow Bold" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="passwordField" layoutX="-1.0" layoutY="155.0" prefHeight="25.0" prefWidth="211.0" />
-            <Button fx:id="signUpButton" layoutX="35.0" layoutY="186.0" mnemonicParsing="false" onAction="#switchToSignup" text="sign up">
+            <TextField fx:id="passwordField" layoutX="-1.0" layoutY="155.0" prefHeight="25.0" prefWidth="211.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></TextField>
+            <Button fx:id="signUpButton" layoutX="31.0" layoutY="186.0" mnemonicParsing="false" onAction="#switchToSignup" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0.5);" text="sign up">
                <font>
                   <Font name="Arial Narrow Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="signInButton" layoutX="114.0" layoutY="186.0" mnemonicParsing="false" style="-fx-font-weight: bold;" text="sign in" onAction="#checkData">
+            <Button fx:id="signInButton" layoutX="105.0" layoutY="185.0" mnemonicParsing="false" onAction="#checkData" prefHeight="31.0" prefWidth="68.0" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0.5);" text="sign in">
                <font>
                   <Font name="Arial Narrow Bold" size="16.0" />
                </font>
             </Button>
+            <Text fill="WHITE" layoutX="45.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ProHealth">
+               <font>
+                  <Font name="Arial Narrow Bold Italic" size="30.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>
