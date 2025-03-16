@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.UserManager;
 import utils.Utils;
@@ -17,13 +19,14 @@ import utils.Utils;
 public class SignUpSceneController {
     @FXML
     private ResourceBundle resources;
-
+    @FXML
+    private AnchorPane pane;
     @FXML
     private URL location;
     @FXML
     private TextField useNameField;
     @FXML
-    private TextField passwordField;
+    private PasswordField confirmPasswordField;
     @FXML
     private ImageView image;
 
@@ -34,9 +37,12 @@ public class SignUpSceneController {
     @FXML
     private Button backButton;
     @FXML
-    private TextField confirmPasswordField;
+    private PasswordField passwordField;
     private UserManager userManager = UserManager.getInstance();
-
+    @FXML
+    private void initialize() {
+        pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+    }
     @FXML
     private void saveToFile() {
         String userName = useNameField.getText().trim();

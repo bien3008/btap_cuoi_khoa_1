@@ -3,6 +3,8 @@ package org.example.btap_cuoi_khoa_1;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +33,7 @@ public class LoginSceneController {
     @FXML
     private TextField useNameField;
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
     @FXML
     private Button signInButton;
 
@@ -46,6 +48,7 @@ public class LoginSceneController {
     @FXML
     public void initialize() {
         userManager.loadUsers();
+        rootPane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         Scene scene = rootPane.getScene();
         if (scene != null) {
             rootPane.prefWidthProperty().bind(scene.widthProperty());
@@ -63,8 +66,8 @@ public class LoginSceneController {
             return;
         }
         if(userManager.logIn(useName,password)){
-//            switchToMain();
-            switchToTest();
+            switchToMain();
+//            switchToTest();
         }
         else {
             Utils.showAlert("incorrect useName or password!");

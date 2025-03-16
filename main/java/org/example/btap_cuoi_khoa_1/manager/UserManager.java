@@ -18,7 +18,7 @@ public class UserManager {
     }
     public void loadUsers() {
         userMap.clear();
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/Data/userAccount.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Utils.fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");

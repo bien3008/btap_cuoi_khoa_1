@@ -9,12 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
 import org.example.btap_cuoi_khoa_1.view.AlarmCell;
 import org.example.btap_cuoi_khoa_1.view.AlarmNotifications;
+import org.example.btap_cuoi_khoa_1.view.AlarmSound;
 import org.example.btap_cuoi_khoa_1.view.Reminder;
 import utils.Utils;
 
@@ -23,6 +25,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +47,8 @@ public class MainSceneController {
     private Button addButton;
     @FXML
     private Button editButton;
-
+    @FXML
+    private AnchorPane pane;
     private boolean isSelectingAdd = false;
     private boolean isSelectingEdit = false;
 
@@ -61,6 +65,7 @@ public class MainSceneController {
 
     public void initialize() {
         manager.loadAlarms();
+        pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         alarmListView.setItems(alarmList);
         vBox.setVisible(false);
         alarmListView.setCellFactory(param -> new AlarmCell());
@@ -84,6 +89,7 @@ public class MainSceneController {
             }
         });
         notifications.startChecking();
+        reminder.startReminder();
     }
     @FXML
     private void showInputFields() {
@@ -129,7 +135,18 @@ public class MainSceneController {
     }
     @FXML
     private void LogOut(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("notify");
+        alert.setHeaderText("are you want to log out!");
+        ButtonType okButton = new ButtonType("ok");
+        ButtonType cancelButton = new ButtonType("cancel");
+        alert.getButtonTypes().setAll(okButton,cancelButton);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == okButton) {
             switchToLogin();
+            reminder.stopReminder();
+        }
+
     }
     @FXML
     private void switchToLogin() {

@@ -5,67 +5,75 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#handleRootClick" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.MainSceneController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.MainSceneController">
    <children>
-      <HBox alignment="CENTER" layoutX="-1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="85.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+      <AnchorPane layoutX="3.0" prefHeight="67.0" prefWidth="601.0">
          <children>
-            <Label fx:id="label" text="alarm list" textFill="WHITE">
+            <Label layoutX="234.0" layoutY="16.0" text="ProHealth">
                <font>
-                  <Font name="Arial Black" size="20.0" />
+                  <Font name="AdobeHebrew-Bold" size="30.0" />
                </font>
             </Label>
          </children>
-      </HBox>
-      <ListView fx:id="alarmListView" layoutY="80.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.7);" />
-      <AnchorPane fx:id="inputPane" layoutY="271.0" prefHeight="129.0" prefWidth="600.0" style="-fx-background-color: rgba(255,255,255,0.5);">
+      </AnchorPane>
+      <ListView fx:id="alarmListView" layoutX="1.0" layoutY="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="601.0" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-image: src/main/resources/images/background-dep-thien-nhien.jpg;" />
+      <ImageView fitHeight="144.0" fitWidth="610.0" layoutX="-4.0" layoutY="257.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../images/background-dep-don-gian.jpg" />
+         </image>
+      </ImageView>
+      <VBox fx:id="vBox" layoutX="147.0" layoutY="267.0" prefHeight="123.0" prefWidth="133.0">
          <children>
-            <VBox alignment="TOP_RIGHT" layoutX="476.0" layoutY="16.0" prefHeight="113.0" prefWidth="124.0">
-               <children>
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="add alarm">
-                     <font>
-                        <Font name="Arial Narrow Bold" size="16.0" />
-                     </font></Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="edit alarm">
-                     <font>
-                        <Font name="Arial Narrow Bold" size="16.0" />
-                     </font></Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5); -fx-font-weight: bold;" text="delete alarm">
-                     <font>
-                        <Font name="Arial Narrow Bold Italic" size="16.0" />
-                     </font></Button>
-               </children>
-            </VBox>
-            <VBox fx:id="vBox" alignment="TOP_RIGHT" layoutX="324.0" layoutY="16.0" prefHeight="113.0" prefWidth="133.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="choose time">
-                     <font>
-                        <Font name="Arial Narrow" size="14.0" />
-                     </font>
-                  </Text>
-                  <ComboBox fx:id="timeComboBox" prefWidth="150.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="message">
-                     <font>
-                        <Font name="Arial Narrow" size="14.0" />
-                     </font>
-                  </Text>
-                  <TextArea fx:id="textArea" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="20.0" promptText="message" style="-fx-background-color: white;">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font></TextArea>
-               </children>
-            </VBox>
-            <Button fx:id="logOutButton" layoutX="13.0" layoutY="91.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0.5);" text="log out">
+            <Text fill="#ffe3e3" strokeType="OUTSIDE" strokeWidth="0.0" text="choose time">
+               <font>
+                  <Font name="Arial Narrow" size="14.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="timeComboBox" prefWidth="150.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="message">
+               <font>
+                  <Font name="Arial Narrow" size="14.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="textArea" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="20.0" promptText="message" style="-fx-background-color: black;" wrapText="true">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </TextArea>
+         </children>
+      </VBox>
+      <Button fx:id="logOutButton" layoutX="535.0" layoutY="355.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0);" text="log out" textFill="WHITE">
+         <font>
+            <Font name="Arial Narrow Bold Italic" size="16.0" />
+         </font>
+      </Button>
+      <VBox alignment="TOP_RIGHT" layoutY="264.0" prefHeight="129.0" prefWidth="116.0">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="add alarm" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Button fx:id="editButton" defaultButton="true" mnemonicParsing="false" onAction="#editAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="edit alarm" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAlarm" onMouseClicked="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="delete alarm" textFill="#fff9f9">
                <font>
                   <Font name="Arial Narrow Bold Italic" size="16.0" />
                </font>
             </Button>
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </AnchorPane>

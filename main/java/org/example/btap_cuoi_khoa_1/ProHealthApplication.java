@@ -13,10 +13,9 @@ public class ProHealthApplication extends Application  {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ProHealthApplication.class.getResource("loginScene.fxml"));
-        AnchorPane root = new AnchorPane();
+
         stage.setTitle("ProHealthApp");
         Scene scene = new Scene(fxmlLoader.load() );
-
         stage.setScene(scene);
         stage.show();
     }

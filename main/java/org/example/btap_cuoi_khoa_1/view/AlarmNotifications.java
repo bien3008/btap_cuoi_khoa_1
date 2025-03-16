@@ -14,30 +14,20 @@ import java.util.concurrent.TimeUnit;
 public class AlarmNotifications {
     private ObservableList<Alarm> alarmList;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
+    AlarmSound alarmSound = new AlarmSound();
     public AlarmNotifications(ObservableList<Alarm> alarmList) {
         this.alarmList = alarmList;
     }
     public void startChecking() {
-//        for (Alarm alarm : alarmList) {
-//            if (alarm.isActive()) {
-//                Utils.showAlert(alarm.getTime().toString());
-////                Platform.runLater(() -> Utils.showAlert(alarm.getMessage()));
-//            }
-//        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-//        LocalTime time = LocalTime.now();
-//        time.format(formatter);
-//        Utils.showAlert(time.format(formatter).toString());
         scheduler.scheduleAtFixedRate(() -> {
             LocalTime now = LocalTime.now();
             for (Alarm alarm : alarmList) {
                 if (alarm.isActive() && alarm.getTime().toString().equals(now.format(formatter))) {
                     Platform.runLater(() -> Utils.showAlert(alarm.getMessage()));
+                    AlarmSound.playAlarmSound();
                 }
             }
-        }, 0, 1, TimeUnit.MINUTES);
+        }, 0, 15, TimeUnit.SECONDS);
     }
-
-
 }
