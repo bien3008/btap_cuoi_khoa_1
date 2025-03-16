@@ -8,11 +8,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.MainSceneController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleRootClick" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.TestController">
    <children>
       <AnchorPane layoutX="3.0" prefHeight="67.0" prefWidth="601.0">
          <children>
@@ -36,7 +37,12 @@
                   <Font name="Arial Narrow" size="14.0" />
                </font>
             </Text>
-            <ComboBox fx:id="timeComboBox" prefWidth="150.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+            <HBox prefHeight="37.0" prefWidth="123.0">
+               <children>
+                  <ComboBox fx:id="hourComboBox" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+                  <ComboBox fx:id="minuteComboBox" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+               </children>
+            </HBox>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="message">
                <font>
                   <Font name="Arial Narrow" size="14.0" />

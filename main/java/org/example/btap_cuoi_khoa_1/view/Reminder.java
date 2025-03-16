@@ -19,9 +19,11 @@ public class Reminder {
         }, 0, 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
             Platform.runLater(() -> Utils.showAlert("it's time to drink a cup of water to help your body not to get dehydrated."));
+            alarmSound.playAlarmSound();
         },10 , 60, TimeUnit.SECONDS);
         scheduler.scheduleAtFixedRate(() -> {
             Platform.runLater(() -> Utils.showAlert("it's time to look into the green space to rest your eyes."));
+            alarmSound.playAlarmSound();
         }, 20, 60, TimeUnit.SECONDS);
     }
     public void stopReminder(){

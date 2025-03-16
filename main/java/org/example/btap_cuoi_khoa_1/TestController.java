@@ -50,13 +50,13 @@ public class TestController {
     private Button editButton;
     @FXML
     private AnchorPane pane;
-    private boolean isSelectingAdd = false;
-    private boolean isSelectingEdit = false;
-
     @FXML
     private TextArea textArea;
     @FXML
     private ComboBox<LocalTime> timeComboBox;
+
+    private boolean isSelectingAdd = false;
+    private boolean isSelectingEdit = false;
 
     AlarmsManager manager = AlarmsManager.getInstance();
     ObservableList<Alarm> alarmList = manager.getAlarmList();
@@ -66,6 +66,7 @@ public class TestController {
 
     public void initialize() {
         manager.loadAlarms();
+
         pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         alarmListView.setItems(alarmList);
         vBox.setVisible(false);
@@ -79,18 +80,30 @@ public class TestController {
         for (int minute = 0; minute < 60; minute++) {
             minuteComboBox.getItems().add(LocalTime.of(0, minute));
         }
-        timeComboBox.setItems(FXCollections.observableArrayList(timeOptions));
-        timeComboBox.setConverter(new javafx.util.StringConverter<>() {
+        hourComboBox.setConverter(new javafx.util.StringConverter<>() {
             @Override
             public String toString(LocalTime time) {
-                return (time == null) ? "" : time.format(formatter);
+                return (time == null) ? "" : time.format(DateTimeFormatter.ofPattern("HH"));
             }
 
             @Override
             public LocalTime fromString(String string) {
-                return (string == null || string.isEmpty()) ? null : LocalTime.parse(string, formatter);
+                return (string == null || string.isEmpty()) ? null : LocalTime.of(Integer.parseInt(string), 0);
             }
         });
+
+        minuteComboBox.setConverter(new javafx.util.StringConverter<>() {
+            @Override
+            public String toString(LocalTime time) {
+                return (time == null) ? "" : time.format(DateTimeFormatter.ofPattern("mm"));
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                return (string == null || string.isEmpty()) ? null : LocalTime.of(0, Integer.parseInt(string));
+            }
+        });
+
         notifications.startChecking();
         reminder.startReminder();
     }
@@ -111,27 +124,34 @@ public class TestController {
             showInputFields();
             isSelectingAdd = true;
         } else {
-            LocalTime time = timeComboBox.getValue();
+            LocalTime hour = hourComboBox.getValue();
+            LocalTime minutes = minuteComboBox.getValue();
             String message = textArea.getText();
-            if(time == null && message.isEmpty()){
+            if(hour == null && message.isEmpty()){
                 vBox.setVisible(false);
                 isSelectingAdd = false;
                 return;
             }
-            if(time == null){
-                Utils.showAlert("please choose time for alarm!");
+            if(hour == null){
+                Utils.showAlert("please choose hour for alarm!");
+                return;
+            }
+            if(minutes == null){
+                Utils.showAlert("please choose minutes for alarm!");
                 return;
             }
             if(message.isEmpty()){
                 Utils.showAlert("please enter message");
                 return;
             }
+            LocalTime time = LocalTime.of(hour.getHour(),minutes.getMinute());
             Alarm newAlarm = new Alarm(time, message,true);
             alarmList.add(newAlarm);
+            hourComboBox.setValue(null);
+            minuteComboBox.setValue(null);
             vBox.setVisible(false);
             isSelectingAdd = false;
             textArea.clear();
-            timeComboBox.setValue(null);
             manager.saveAlarm();
         }
 
@@ -173,19 +193,20 @@ public class TestController {
 
             try {
                 Alarm alarm = alarmListView.getSelectionModel().getSelectedItem();
-
-                LocalTime time = timeComboBox.getValue();
+                LocalTime hour = hourComboBox.getValue();
+                LocalTime minutes = minuteComboBox.getValue();
                 String message = textArea.getText();
-                if(alarm == null && (time != null || !message.isEmpty())){
+                if(alarm == null && ((hour != null && minutes != null) || !message.isEmpty())){
                     Utils.showAlert("please choose an alarm!");
                     return;
                 }
-                if(time == null && message.isEmpty()){
+                if(hour == null && minutes == null && message.isEmpty()){
                     vBox.setVisible(false);
                     isSelectingEdit = false;
                     return;
                 }
-                if(time != null) {
+                if(hour != null && minutes != null) {
+                    LocalTime time = LocalTime.of(hour.getHour(),minutes.getMinute());
                     alarm.setTime(time);
                     timeComboBox.setValue(null);
                 }
