@@ -1,4 +1,6 @@
-
+.checkbox, .checkbox .box, .checkbox .text {
+    -fx-cursor: hand;
+}
 .button {
     -fx-cursor: hand;
 }

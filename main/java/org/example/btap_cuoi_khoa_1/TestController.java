@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
@@ -17,17 +19,30 @@ import org.example.btap_cuoi_khoa_1.view.AlarmCell;
 import org.example.btap_cuoi_khoa_1.view.AlarmNotifications;
 import org.example.btap_cuoi_khoa_1.view.Reminder;
 import utils.Utils;
+import java.time.DayOfWeek;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class TestController {
+    @FXML
+    private CheckBox monday;
+    @FXML
+    private CheckBox tuesday;
+    @FXML
+    private CheckBox wednesday;
+    @FXML
+    private CheckBox thursday;
+    @FXML
+    private CheckBox friday;
+    @FXML
+    private CheckBox saturday;
+    @FXML
+    private CheckBox sunday;
     @FXML
     private ComboBox<LocalTime> hourComboBox;
     @FXML
@@ -53,7 +68,7 @@ public class TestController {
     @FXML
     private TextArea textArea;
     @FXML
-    private ComboBox<LocalTime> timeComboBox;
+    private VBox daysContainer;
 
     private boolean isSelectingAdd = false;
     private boolean isSelectingEdit = false;
@@ -63,15 +78,26 @@ public class TestController {
     private final Reminder reminder = new Reminder();
     private AlarmNotifications notifications = new AlarmNotifications(alarmList);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    @FXML
+    private List<String> getDays(){
+        List<String> days = new ArrayList<>();
+        if(monday.isSelected()) days.add("monday");
+        if(tuesday.isSelected()) days.add("tuesday");
+        if(wednesday.isSelected()) days.add("wednesday");
+        if(thursday.isSelected()) days.add("thursday");
+        if(friday.isSelected()) days.add("friday");
+        if(saturday.isSelected()) days.add("saturday");
+        if(sunday.isSelected()) days.add("sunday");
+        return days;
+    }
 
     public void initialize() {
         manager.loadAlarms();
 
+        hide();
         pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         alarmListView.setItems(alarmList);
-        vBox.setVisible(false);
         alarmListView.setCellFactory(param -> new AlarmCell());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         List<LocalTime> timeOptions = new ArrayList<>();
         for (int hour = 0; hour < 24; hour++) {
             hourComboBox.getItems().add(LocalTime.of(hour, 0));
@@ -105,19 +131,35 @@ public class TestController {
         });
 
         notifications.startChecking();
-        reminder.startReminder();
+        alarmListView.refresh();
+//        reminder.startReminder();
     }
     @FXML
     private void showInputFields() {
         vBox.setVisible(true);
+        daysContainer.setVisible(true);
     }
+    @FXML
+    private void hide(){
+        vBox.setVisible(false);
+        daysContainer.setVisible(false);
+        monday.setSelected(false);
+        tuesday.setSelected(false);
+        wednesday.setSelected(false);
+        thursday.setSelected(false);
+        friday.setSelected(false);
+        saturday.setSelected(false);
+        sunday.setSelected(false);
 
+    }
     @FXML
     private void handleRootClick(MouseEvent event) {
         if (!alarmListView.getBoundsInParent().contains(event.getX(), event.getY())) {
             alarmListView.getSelectionModel().clearSelection();
         }
+
     }
+
     @FXML
     private void addAlarm() {
         if (isSelectingAdd != true) {
@@ -128,7 +170,7 @@ public class TestController {
             LocalTime minutes = minuteComboBox.getValue();
             String message = textArea.getText();
             if(hour == null && message.isEmpty()){
-                vBox.setVisible(false);
+                hide();
                 isSelectingAdd = false;
                 return;
             }
@@ -144,12 +186,13 @@ public class TestController {
                 Utils.showAlert("please enter message");
                 return;
             }
+            List<String> activeDays = getDays();
             LocalTime time = LocalTime.of(hour.getHour(),minutes.getMinute());
-            Alarm newAlarm = new Alarm(time, message,true);
+            Alarm newAlarm = new Alarm(time, message,true,activeDays);
             alarmList.add(newAlarm);
             hourComboBox.setValue(null);
             minuteComboBox.setValue(null);
-            vBox.setVisible(false);
+            hide();
             isSelectingAdd = false;
             textArea.clear();
             manager.saveAlarm();
@@ -185,33 +228,47 @@ public class TestController {
     @FXML
     private void editAlarm(){
 
+        Alarm alarm = alarmListView.getSelectionModel().getSelectedItem();
+        if(alarm == null){
+            Utils.showAlert("please choose an alarm!");
+            return;
+        }
         if (isSelectingEdit != true) {
             showInputFields();
             isSelectingEdit = true;
         } else {
             isSelectingEdit = false;
-
             try {
-                Alarm alarm = alarmListView.getSelectionModel().getSelectedItem();
                 LocalTime hour = hourComboBox.getValue();
                 LocalTime minutes = minuteComboBox.getValue();
                 String message = textArea.getText();
-                if(alarm == null && ((hour != null && minutes != null) || !message.isEmpty())){
-                    Utils.showAlert("please choose an alarm!");
+                List<String> activeDays = getDays();
+                if(hour == null && minutes == null && message.isEmpty() && activeDays == null){
+                    Utils.showAlert("please enter information you want to edit");
                     return;
                 }
-                if(hour == null && minutes == null && message.isEmpty()){
-                    vBox.setVisible(false);
-                    isSelectingEdit = false;
+                if ((hour == null && minutes != null) || (hour != null && minutes == null)) {
+                    Utils.showAlert("please choose full of time to edit alarm");
                     return;
                 }
                 if(hour != null && minutes != null) {
+                    hide();
                     LocalTime time = LocalTime.of(hour.getHour(),minutes.getMinute());
                     alarm.setTime(time);
-                    timeComboBox.setValue(null);
+                    hourComboBox.setValue(null);
+                    minuteComboBox.setValue(null);
+
+                }
+                if(activeDays != null){
+                    hide();
+                    alarm.setActiveDays(activeDays);
+
                 }
                 if(!message.isEmpty()) {
                     alarm.setMessage(message);
+                    hide();
+                    hourComboBox.setValue(null);
+                    minuteComboBox.setValue(null);
                     textArea.clear();
                 }
                 alarmListView.refresh();

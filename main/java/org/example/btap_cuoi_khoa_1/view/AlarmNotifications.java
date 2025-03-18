@@ -5,11 +5,18 @@ import javafx.collections.ObservableList;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
 import utils.Utils;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import static org.example.btap_cuoi_khoa_1.view.AlarmSound.playAlarmSound;
 
 public class AlarmNotifications {
     private ObservableList<Alarm> alarmList;
@@ -18,16 +25,27 @@ public class AlarmNotifications {
     public AlarmNotifications(ObservableList<Alarm> alarmList) {
         this.alarmList = alarmList;
     }
+
+    private boolean checkDay(Alarm alarm){
+        List<String> activeDays = alarm.getActiveDays();
+        LocalDate today = LocalDate.now();
+        DayOfWeek todayOfWeek = today.getDayOfWeek();
+        return  activeDays.isEmpty() || alarm.getActiveDays().contains(todayOfWeek.toString().toLowerCase());
+    }
     public void startChecking() {
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         scheduler.scheduleAtFixedRate(() -> {
             LocalTime now = LocalTime.now();
             for (Alarm alarm : alarmList) {
-                if (alarm.isActive() && alarm.getTime().toString().equals(now.format(formatter))) {
-                    Platform.runLater(() -> Utils.showAlert(alarm.getMessage()));
-                    AlarmSound.playAlarmSound();
+                if(alarm.isActive() && checkDay(alarm)) {
+                    if (alarm.getTime().toString().equals(now.format(formatter))) {
+                        Platform.runLater(() -> Utils.showAlert(alarm.getMessage()));
+                        playAlarmSound();
+//                        alarm.setActive(false);
+                    }
                 }
             }
-        }, 0, 15, TimeUnit.SECONDS);
+        }, 0, 60, TimeUnit.SECONDS);
     }
 }
