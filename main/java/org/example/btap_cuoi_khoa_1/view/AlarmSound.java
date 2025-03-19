@@ -7,15 +7,23 @@ import java.io.File;
 
 
 public class AlarmSound {
-    private static MediaPlayer mediaPlayer;
-    public static void playAlarmSound() {
-        Media media = new Media(new File("src/main/resources/audio/sound_cut.mp3").toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+    private  static MediaPlayer mediaPlayer;
+//    public static void playAlarmSound() {
+//        Media media = new Media(new File("src/main/resources/audio/default_sound.mp3").toURI().toString());
+//        mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setVolume(0.8);
+//        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
+//        mediaPlayer.play();
+//    }
+
+    public static void playAlarmSound(String musicPath) {
+
+        Media sound = new Media(musicPath);
+        mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setVolume(0.8);
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.play();
     }
-
     public static void stopAlarmSound() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();

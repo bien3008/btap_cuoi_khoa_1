@@ -11,12 +11,32 @@ public class Alarm implements Serializable {
     private String message;
     private boolean isActive;
     private List<String> activeDays = new ArrayList<>();
+    private String musicPath;
+    private String musicName;
 
-    public Alarm(LocalTime time, String message, boolean isActive, List<String> activeDays) {
+    public Alarm(LocalTime time, String message, boolean isActive, List<String> activeDays, String musicPath, String musicName) {
         this.time = time;
         this.message = message;
         this.isActive = isActive;
         this.activeDays = activeDays;
+        this.musicPath = musicPath;
+        this.musicName = musicName;
+    }
+
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
+    }
+
+    public String getMusicName() {
+        return musicName;
+    }
+
+    public String getMusicPath() {
+        return musicPath;
+    }
+
+    public void setMusicPath(String musicPath) {
+        this.musicPath = musicPath;
     }
 
     public void setTime(LocalTime time) {

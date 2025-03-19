@@ -16,7 +16,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static org.example.btap_cuoi_khoa_1.view.AlarmSound.playAlarmSound;
 
 public class AlarmNotifications {
     private ObservableList<Alarm> alarmList;
@@ -33,7 +32,7 @@ public class AlarmNotifications {
         return  activeDays.isEmpty() || alarm.getActiveDays().contains(todayOfWeek.toString().toLowerCase());
     }
     public void startChecking() {
-
+        AlarmSound alarmSound = new AlarmSound();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         scheduler.scheduleAtFixedRate(() -> {
             LocalTime now = LocalTime.now();
@@ -41,7 +40,7 @@ public class AlarmNotifications {
                 if(alarm.isActive() && checkDay(alarm)) {
                     if (alarm.getTime().toString().equals(now.format(formatter))) {
                         Platform.runLater(() -> Utils.showAlert(alarm.getMessage()));
-                        playAlarmSound();
+                        alarmSound.playAlarmSound(alarm.getMusicPath());
 //                        alarm.setActive(false);
                     }
                 }

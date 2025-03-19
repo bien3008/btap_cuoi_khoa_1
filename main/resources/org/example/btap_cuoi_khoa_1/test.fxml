@@ -75,7 +75,7 @@
                </font>
             </Button>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
-            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAlarm" onMouseClicked="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="delete alarm" textFill="#fff9f9">
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="delete alarm" textFill="#ffffff">
                <font>
                   <Font name="Arial Narrow Bold Italic" size="16.0" />
                </font>

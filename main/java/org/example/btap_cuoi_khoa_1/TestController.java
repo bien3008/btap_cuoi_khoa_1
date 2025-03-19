@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
@@ -19,6 +20,8 @@ import org.example.btap_cuoi_khoa_1.view.AlarmCell;
 import org.example.btap_cuoi_khoa_1.view.AlarmNotifications;
 import org.example.btap_cuoi_khoa_1.view.Reminder;
 import utils.Utils;
+
+import java.io.File;
 import java.time.DayOfWeek;
 
 import java.io.IOException;
@@ -77,7 +80,6 @@ public class TestController {
     ObservableList<Alarm> alarmList = manager.getAlarmList();
     private final Reminder reminder = new Reminder();
     private AlarmNotifications notifications = new AlarmNotifications(alarmList);
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     @FXML
     private List<String> getDays(){
         List<String> days = new ArrayList<>();
@@ -90,7 +92,6 @@ public class TestController {
         if(sunday.isSelected()) days.add("sunday");
         return days;
     }
-
     public void initialize() {
         manager.loadAlarms();
 
@@ -98,7 +99,6 @@ public class TestController {
         pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
         alarmListView.setItems(alarmList);
         alarmListView.setCellFactory(param -> new AlarmCell());
-        List<LocalTime> timeOptions = new ArrayList<>();
         for (int hour = 0; hour < 24; hour++) {
             hourComboBox.getItems().add(LocalTime.of(hour, 0));
         }
@@ -166,9 +166,11 @@ public class TestController {
             showInputFields();
             isSelectingAdd = true;
         } else {
+            AlarmCell alarmCell = new AlarmCell();
             LocalTime hour = hourComboBox.getValue();
             LocalTime minutes = minuteComboBox.getValue();
             String message = textArea.getText();
+            String selectedMusicPath = alarmCell.getSelectedMusicPath();
             if(hour == null && message.isEmpty()){
                 hide();
                 isSelectingAdd = false;
@@ -188,7 +190,11 @@ public class TestController {
             }
             List<String> activeDays = getDays();
             LocalTime time = LocalTime.of(hour.getHour(),minutes.getMinute());
-            Alarm newAlarm = new Alarm(time, message,true,activeDays);
+            if (selectedMusicPath == null || selectedMusicPath.isEmpty()) {
+                selectedMusicPath = getClass().getResource("/audio/default_sound.mp3").toExternalForm();
+            }
+//            System.out.println(selectedMusicPath);
+            Alarm newAlarm = new Alarm(time, message,true,activeDays,selectedMusicPath,"default sound.mp3");
             alarmList.add(newAlarm);
             hourComboBox.setValue(null);
             minuteComboBox.setValue(null);
@@ -209,8 +215,8 @@ public class TestController {
         alert.getButtonTypes().setAll(okButton,cancelButton);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == okButton) {
-            switchToLogin();
             reminder.stopReminder();
+            switchToLogin();
         }
 
     }
@@ -291,11 +297,10 @@ public class TestController {
             alarmList.remove(alarm);
             alarmListView.refresh();
             manager.saveAlarm();
-            vBox.setVisible(false);
+            hide();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 }

@@ -28,9 +28,6 @@ public class Utils {
         if (result.isPresent() && result.get() == okButton) {
             alarmSound.stopAlarmSound();
         }
-        else{
-
-        }
     }
     public static String fileName = "src/main/Data/userAccount.txt";
 }

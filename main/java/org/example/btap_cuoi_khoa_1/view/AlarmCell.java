@@ -8,15 +8,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.stage.FileChooser;
+import org.example.btap_cuoi_khoa_1.TestController;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.manager.UserManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
 
+import java.io.File;
+
 public class AlarmCell extends ListCell<Alarm> {
     private final Label alarmLabel = new Label();
-    private final Label daysLabel = new Label();
     private final Button toggleButton = new Button();
-    private final HBox hbox = new HBox(30, alarmLabel, toggleButton);
+    Button chooseMusicButton = new Button("choose alarm sound");
+    Label musicLabel = new Label();
+    private String selectedMusicPath = "";
+    private final HBox hbox = new HBox(30, alarmLabel, toggleButton, chooseMusicButton,musicLabel);
     AlarmsManager manager = AlarmsManager.getInstance();
     public AlarmCell() {
         toggleButton.setOnAction(event -> {
@@ -28,8 +34,31 @@ public class AlarmCell extends ListCell<Alarm> {
                 manager.saveAlarm();
             }
         });
-    }
+        chooseMusicButton.setOnAction(event -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav"));
+            File defaultDirectory = new File("C:/btap_cuoi_khoa_1/btap_cuoi_khoa_1/src/main/resources/audio");
+            if (defaultDirectory.exists()) {
+                fileChooser.setInitialDirectory(defaultDirectory);
+            }
+            File selectedFile = fileChooser.showOpenDialog(null);
 
+            if (selectedFile != null) {
+                selectedMusicPath = selectedFile.toURI().toString();
+                Alarm alarm = getItem();
+                if (alarm != null) {
+                    alarm.setMusicPath(selectedMusicPath);
+                    manager.getAlarmList().set(getIndex(), alarm);
+                    updateItem(alarm, false);
+                    alarm.setMusicName(selectedFile.getName());
+                    manager.saveAlarm();
+                }
+            }
+        });
+    }
+    public String getSelectedMusicPath(){
+        return selectedMusicPath;
+    }
     @Override
     protected void updateItem(Alarm alarm, boolean empty) {
         super.updateItem(alarm, empty);
@@ -37,9 +66,7 @@ public class AlarmCell extends ListCell<Alarm> {
             setGraphic(null);
         } else {
             alarmLabel.setText(alarm.getTime() + " - " + alarm.getMessage() + "\n" + alarm.getDays());
-//            String daysText = alarm.getDays();
-//            daysLabel.setText("Ngày hoạt động: " + (daysText.isEmpty() ? "Chỉ hôm nay" : daysText));
-//            daysLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 12px;");
+            musicLabel.setText(alarm.getMusicName());
             if(alarm.isActive()){
                 toggleButton.setText("ON");
                 toggleButton.setBackground(new Background(new BackgroundFill(Color.GREEN,null,null)));
