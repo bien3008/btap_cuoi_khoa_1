@@ -4,3 +4,31 @@
 .button {
     -fx-cursor: hand;
 }
+.list-view {
+    -fx-background-color: transparent;
+}
+.list-cell {
+    -fx-background-color: transparent;
+}
+#hourComboBox .list-cell {
+    -fx-background-color: #444444;
+    -fx-text-fill: white;
+}
+
+#hourComboBox .list-cell:hover {
+    -fx-background-color: #00daff;
+}
+#minuteComboBox .list-cell {
+    -fx-background-color: #444444;
+    -fx-text-fill: white;
+}
+.list-cell:hover {
+    -fx-background-color: #00daff;
+}
+.list-cell:filled:selected {
+    -fx-background-color: #009dff;
+    -fx-text-fill: white;
+}
+#minuteComboBox .list-cell:hover {
+    -fx-background-color: #00daff;
+}

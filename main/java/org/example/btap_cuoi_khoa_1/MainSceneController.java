@@ -1,36 +1,28 @@
 package org.example.btap_cuoi_khoa_1;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
 import org.example.btap_cuoi_khoa_1.view.AlarmCell;
 import org.example.btap_cuoi_khoa_1.view.AlarmNotifications;
-import org.example.btap_cuoi_khoa_1.view.AlarmSound;
 import org.example.btap_cuoi_khoa_1.view.Reminder;
 import utils.Utils;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MainSceneController {
     @FXML
@@ -76,12 +68,12 @@ public class MainSceneController {
 
     private boolean isSelectingAdd = false;
     private boolean isSelectingEdit = false;
+    private final Image image = new Image("https://upload.wikimedia.org/wikipedia/commons/f/f1/Ruby_logo_64x64.png");
 
     AlarmsManager manager = AlarmsManager.getInstance();
     ObservableList<Alarm> alarmList = manager.getAlarmList();
     private final Reminder reminder = new Reminder();
     private AlarmNotifications notifications = new AlarmNotifications(alarmList);
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     @FXML
     private List<String> getDays(){
         List<String> days = new ArrayList<>();
@@ -94,14 +86,20 @@ public class MainSceneController {
         if(sunday.isSelected()) days.add("sunday");
         return days;
     }
+    Image backgroundImage = new Image(getClass().getResource("/images/background-dep-don-gian.jpg").toExternalForm());
+    BackgroundSize backgroundSize = new BackgroundSize(100, 100,true, true, true, false);
+    BackgroundImage background = new BackgroundImage(backgroundImage,
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.CENTER, backgroundSize);
     public void initialize() {
+        pane.setBackground(new Background(background));
         manager.loadAlarms();
+//        alarmListView.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         hide();
-        pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        pane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         alarmListView.setItems(alarmList);
         alarmListView.setCellFactory(param -> new AlarmCell());
-        List<LocalTime> timeOptions = new ArrayList<>();
         for (int hour = 0; hour < 24; hour++) {
             hourComboBox.getItems().add(LocalTime.of(hour, 0));
         }
@@ -196,9 +194,9 @@ public class MainSceneController {
             if (selectedMusicPath == null || selectedMusicPath.isEmpty()) {
                 selectedMusicPath = getClass().getResource("/audio/default_sound.mp3").toExternalForm();
             }
+//            System.out.println(selectedMusicPath);
             Alarm newAlarm = new Alarm(time, message,true,activeDays,selectedMusicPath,"default sound.mp3");
             alarmList.add(newAlarm);
-            notifications.startChecking();
             hourComboBox.setValue(null);
             minuteComboBox.setValue(null);
             hide();
@@ -218,8 +216,8 @@ public class MainSceneController {
         alert.getButtonTypes().setAll(okButton,cancelButton);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == okButton) {
-            switchToLogin();
             reminder.stopReminder();
+            switchToLogin();
         }
 
     }
@@ -280,7 +278,6 @@ public class MainSceneController {
                     minuteComboBox.setValue(null);
                     textArea.clear();
                 }
-                notifications.startChecking();
                 alarmListView.refresh();
                 manager.saveAlarm();
                 vBox.setVisible(false);
@@ -301,7 +298,7 @@ public class MainSceneController {
             alarmList.remove(alarm);
             alarmListView.refresh();
             manager.saveAlarm();
-            vBox.setVisible(false);
+            hide();
         } catch (Exception e) {
             e.printStackTrace();
         }

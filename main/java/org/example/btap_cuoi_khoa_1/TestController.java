@@ -1,18 +1,14 @@
 package org.example.btap_cuoi_khoa_1;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.example.btap_cuoi_khoa_1.manager.AlarmsManager;
 import org.example.btap_cuoi_khoa_1.model.Alarm;
@@ -21,15 +17,10 @@ import org.example.btap_cuoi_khoa_1.view.AlarmNotifications;
 import org.example.btap_cuoi_khoa_1.view.Reminder;
 import utils.Utils;
 
-import java.io.File;
-import java.time.DayOfWeek;
-
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class TestController {
     @FXML
@@ -75,6 +66,7 @@ public class TestController {
 
     private boolean isSelectingAdd = false;
     private boolean isSelectingEdit = false;
+    private final Image image = new Image("https://upload.wikimedia.org/wikipedia/commons/f/f1/Ruby_logo_64x64.png");
 
     AlarmsManager manager = AlarmsManager.getInstance();
     ObservableList<Alarm> alarmList = manager.getAlarmList();
@@ -92,11 +84,18 @@ public class TestController {
         if(sunday.isSelected()) days.add("sunday");
         return days;
     }
+    Image backgroundImage = new Image(getClass().getResource("/images/background-dep-don-gian.jpg").toExternalForm());
+    BackgroundSize backgroundSize = new BackgroundSize(100, 100,true, true, true, false);
+    BackgroundImage background = new BackgroundImage(backgroundImage,
+    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+    BackgroundPosition.CENTER, backgroundSize);
     public void initialize() {
+        pane.setBackground(new Background(background));
         manager.loadAlarms();
+//        alarmListView.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
         hide();
-        pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        pane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         alarmListView.setItems(alarmList);
         alarmListView.setCellFactory(param -> new AlarmCell());
         for (int hour = 0; hour < 24; hour++) {

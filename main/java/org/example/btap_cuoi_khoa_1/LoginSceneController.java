@@ -48,7 +48,7 @@ public class LoginSceneController {
     @FXML
     public void initialize() {
         userManager.loadUsers();
-        rootPane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        rootPane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         Scene scene = rootPane.getScene();
         if (scene != null) {
             rootPane.prefWidthProperty().bind(scene.widthProperty());
@@ -66,8 +66,8 @@ public class LoginSceneController {
             return;
         }
         if(userManager.logIn(useName,password)){
-//            switchToMain();
-            switchToTest();
+            switchToMain();
+//            switchToTest();
         }
         else {
             Utils.showAlert("incorrect useName or password!");

@@ -6,8 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,19 +16,14 @@
    <children>
       <AnchorPane layoutX="3.0" prefHeight="67.0" prefWidth="601.0">
          <children>
-            <Label layoutX="234.0" layoutY="16.0" text="ProHealth">
+            <Label layoutX="234.0" layoutY="16.0" text="ProHealth" textFill="WHITE">
                <font>
                   <Font name="AdobeHebrew-Bold" size="30.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <ListView fx:id="alarmListView" layoutX="9.0" layoutY="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="592.0" style="-fx-background-color: rgba(255,255,255,0.7); -fx-background-image: src/main/resources/images/background-dep-thien-nhien.jpg;" />
-      <ImageView fitHeight="144.0" fitWidth="610.0" layoutX="-4.0" layoutY="257.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../images/background-dep-don-gian.jpg" />
-         </image>
-      </ImageView>
+      <ListView fx:id="alarmListView" layoutY="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="601.0" />
       <VBox fx:id="vBox" layoutX="147.0" layoutY="267.0" prefHeight="123.0" prefWidth="133.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="choose time">
@@ -56,14 +49,14 @@
             </TextArea>
          </children>
       </VBox>
-      <Button fx:id="logOutButton" layoutX="535.0" layoutY="355.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0);" text="log out" textFill="WHITE">
+      <Button fx:id="logOutButton" layoutX="505.0" layoutY="349.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0);" text="log out" textFill="WHITE">
          <font>
-            <Font name="Arial Narrow Bold Italic" size="16.0" />
+            <Font name="Arial Narrow Bold Italic" size="20.0" />
          </font>
       </Button>
       <VBox alignment="TOP_RIGHT" layoutY="264.0" prefHeight="129.0" prefWidth="116.0">
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="add alarm" textFill="WHITE">
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);;" text="add alarm" textFill="WHITE">
                <font>
                   <Font name="Arial Narrow Bold" size="16.0" />
                </font>

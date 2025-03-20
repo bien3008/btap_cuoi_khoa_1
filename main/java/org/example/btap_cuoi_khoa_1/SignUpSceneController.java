@@ -41,7 +41,7 @@ public class SignUpSceneController {
     private UserManager userManager = UserManager.getInstance();
     @FXML
     private void initialize() {
-        pane.getStylesheets().add(getClass().getResource("/Style.css").toExternalForm());
+        pane.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     @FXML
     private void saveToFile() {
