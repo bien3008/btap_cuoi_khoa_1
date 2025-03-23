@@ -84,7 +84,7 @@ public class TestController {
         if(sunday.isSelected()) days.add("sunday");
         return days;
     }
-    Image backgroundImage = new Image(getClass().getResource("/images/background-dep-don-gian.jpg").toExternalForm());
+    Image backgroundImage = new Image(getClass().getResource("/images/background.jpg").toExternalForm());
     BackgroundSize backgroundSize = new BackgroundSize(100, 100,true, true, true, false);
     BackgroundImage background = new BackgroundImage(backgroundImage,
     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,

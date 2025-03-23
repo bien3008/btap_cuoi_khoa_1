@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleRootClick" prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.btap_cuoi_khoa_1.MainSceneController">
+   <children>
+      <AnchorPane layoutX="3.0" prefHeight="67.0" prefWidth="601.0">
+         <children>
+            <Label layoutX="234.0" layoutY="16.0" text="ProHealth" textFill="WHITE">
+               <font>
+                  <Font name="AdobeHebrew-Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ListView fx:id="alarmListView" layoutY="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="191.0" prefWidth="601.0" />
+      <VBox fx:id="vBox" layoutX="147.0" layoutY="267.0" prefHeight="123.0" prefWidth="133.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="choose time">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="37.0" prefWidth="123.0">
+               <children>
+                  <ComboBox fx:id="hourComboBox" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+                  <ComboBox fx:id="minuteComboBox" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: rgba(255,255,255,0.5);" />
+               </children>
+            </HBox>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="message">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="textArea" nodeOrientation="RIGHT_TO_LEFT" prefHeight="30.0" prefWidth="20.0" promptText="message" style="-fx-background-color: black;" wrapText="true">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </TextArea>
+         </children>
+      </VBox>
+      <Button fx:id="logOutButton" layoutX="505.0" layoutY="349.0" mnemonicParsing="false" onAction="#LogOut" style="-fx-font-weight: bold; -fx-background-color: rgba(255,255,255,0);" text="log out" textFill="WHITE">
+         <font>
+            <Font name="Arial Narrow Bold Italic" size="20.0" />
+         </font>
+      </Button>
+      <VBox alignment="TOP_RIGHT" layoutY="264.0" prefHeight="129.0" prefWidth="116.0">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);;" text="add alarm" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Button fx:id="editButton" defaultButton="true" mnemonicParsing="false" onAction="#editAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="edit alarm" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAlarm" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: rgba(255,255,255,0.5);" text="delete alarm" textFill="#ffffff">
+               <font>
+                  <Font name="Arial Narrow Bold Italic" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <VBox fx:id="daysContainer" layoutX="333.0" layoutY="274.0" prefHeight="123.0" prefWidth="116.0">
+         <children>
+            <CheckBox fx:id="monday" mnemonicParsing="false" style="-fx-cursor: hand; -fx-background-color: rgba(255,255,255,0);" text="MONDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="tuesday" mnemonicParsing="false" style="-fx-cursor: hand;" text="TUESDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="13.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="wednesday" mnemonicParsing="false" style="-fx-cursor: hand;" text="WEDNESDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="thursday" mnemonicParsing="false" style="-fx-cursor: hand;" text="THURSDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="friday" mnemonicParsing="false" style="-fx-cursor: hand;" text="FRIDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="saturday" mnemonicParsing="false" style="-fx-cursor: hand;" text="SATURDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="sunday" mnemonicParsing="false" style="-fx-cursor: hand;" text="SUNDAY" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

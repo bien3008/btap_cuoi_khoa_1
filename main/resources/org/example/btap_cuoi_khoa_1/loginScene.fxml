@@ -14,7 +14,7 @@
 
       <ImageView fx:id="image" fitHeight="406.0" fitWidth="611.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../images/background-dep-don-gian.jpg" />
+            <Image url="@../../../images/background.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="186.0" layoutY="91.0" prefHeight="237.0" prefWidth="211.0" style="-fx-background-color: rgba(255,255,255,0);">

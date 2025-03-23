@@ -23,7 +23,7 @@ public class AlarmsManager {
         return alarmList;
     }
     public void loadAlarms() {
-        String fileName = "src/main/Data/usersData/" + manager.getCurrentUser() + ".dat";
+        String fileName = "src/main/java/org/example/btap_cuoi_khoa_1/model/Data/usersData/" + manager.getCurrentUser() + ".dat";
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
             alarmList.setAll((ArrayList<Alarm>) in.readObject());
         } catch (IOException | ClassNotFoundException e) {
@@ -31,7 +31,7 @@ public class AlarmsManager {
         }
     }
     public void saveAlarm() {
-        String fileName = "src/main/Data/usersData/" + manager.getCurrentUser() + ".dat";
+        String fileName = "src/main/java/org/example/btap_cuoi_khoa_1/model/Data/usersData/" + manager.getCurrentUser() + ".dat";
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
             out.writeObject(new ArrayList<>(alarmList));
         } catch (IOException e) {

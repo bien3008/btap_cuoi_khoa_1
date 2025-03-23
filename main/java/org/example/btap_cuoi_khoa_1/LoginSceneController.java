@@ -66,8 +66,8 @@ public class LoginSceneController {
             return;
         }
         if(userManager.logIn(useName,password)){
-            switchToMain();
-//            switchToTest();
+//            switchToMain();
+            switchToTest();
         }
         else {
             Utils.showAlert("incorrect useName or password!");

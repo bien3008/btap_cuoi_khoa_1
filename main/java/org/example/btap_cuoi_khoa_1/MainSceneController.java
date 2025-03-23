@@ -86,11 +86,9 @@ public class MainSceneController {
         if(sunday.isSelected()) days.add("sunday");
         return days;
     }
-    Image backgroundImage = new Image(getClass().getResource("/images/background-dep-don-gian.jpg").toExternalForm());
-    BackgroundSize backgroundSize = new BackgroundSize(100, 100,true, true, true, false);
-    BackgroundImage background = new BackgroundImage(backgroundImage,
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.CENTER, backgroundSize);
+    Image backgroundImage = new Image(getClass().getResource("/images/background.jpg").toExternalForm());
+    BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+    BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
     public void initialize() {
         pane.setBackground(new Background(background));
         manager.loadAlarms();

@@ -11,16 +11,16 @@
     -fx-background-color: transparent;
 }
 #hourComboBox .list-cell {
-    -fx-background-color: #444444;
-    -fx-text-fill: white;
+    -fx-background-color: #d9d9d9;
+    -fx-text-fill: black;
 }
 
 #hourComboBox .list-cell:hover {
     -fx-background-color: #00daff;
 }
 #minuteComboBox .list-cell {
-    -fx-background-color: #444444;
-    -fx-text-fill: white;
+    -fx-background-color: #d9d9d9;
+    -fx-text-fill: black;
 }
 .list-cell:hover {
     -fx-background-color: #00daff;
