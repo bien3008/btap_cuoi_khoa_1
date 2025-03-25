@@ -14,13 +14,25 @@ ProHealth is an application that help users to create themselves alarm. This app
 
 ## Screenshots
 
-Ảnh
+**- sign up scene**
 
 ![alt text](sign_up-1.png)
 
+**- login scene**
+
 ![alt text](login-1.png)
 
+**- main scene**
+
 ![alt text](main-1.png)
+
+**- choose music**
+
+![alt text](chon_nhac.png)
+
+**- alarm**
+
+![alt text](image.png)
 
 ## Features
 
